@@ -20,9 +20,15 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
+              "src/theme.less",
               "src/styles.css"
             ],
             "scripts": [],
@@ -58,7 +64,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-webapp:build"
+            "browserTarget": "angular-webapp:build",
+            "proxyConfig": "proxy.config.json",
+            "host": "0.0.0.0",
+            "disableHostCheck": true,
+            "open": false
           },
           "configurations": {
             "production": {

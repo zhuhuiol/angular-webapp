@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "dev": "ng serve --host 0.0.0.0 --proxy-config proxy.config.json --disableHostCheck --port 4200",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -20,6 +21,9 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "core-js": "^2.5.4",
+    "crypto-js": "^4.0.0",
+    "jsencrypt": "^3.0.0-rc.1",
+    "ng-zorro-antd": "^7.5.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
