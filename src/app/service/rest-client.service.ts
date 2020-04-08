@@ -31,7 +31,7 @@ export class RestClientService {
       }
     }
     return this.http
-      .post(url, body.toString(), { headers: postHeaders })
+      .post(url, body.toString(), { headers: postHeaders, responseType: "text" })
       .toPromise()
       .catch(this.handleError);
   }

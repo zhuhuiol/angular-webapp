@@ -33,28 +33,33 @@ export class LoginComponent implements OnInit {
       this.message.create("error", "请输入用户名密码");
       return;
     }
-    this.restClient.get("/test/chanel").then(result =>{
-      console.log("chanel:", result);
+    //加密密码
+    debugger;
+    let enpwd = {password: password};
+    this.restClient.post("/api/pwdEncrypt", enpwd).then(result =>{
+      console.log("pwdEncrypt:", result);
     });
-    const encryptedPassword = new KeyEncryptUtils().encrypt(
-      password,
-      '123123'
-    );
-    password = encryptedPassword;
+    // const encryptedPassword = new KeyEncryptUtils().encrypt(
+    //   password,
+    //   '123123'
+    // );
     const opts = {
-      username: username,
-      password: encryptedPassword,
+      zhun: username,
+      zhpw: password,
       'remember-me': false,
       responseType: 'json',
       code: null
     };
     const params = opts;
-    this.restClient.submitFormData("/login", params).then(result => {
-      console.log("login:" + result);
+    // this.restClient.submitFormData("/login", params).then(result => {
+    //   let data = JSON.parse(result);
+    //   if (data.code == 1) {
+    //     this.router.navigateByUrl("/");
+    //   } else {
+    //     this.message.create("error", data.message);
+    //   }
       
-      this.router.navigateByUrl("/");
-
-    });
+    // });
     
 
 
