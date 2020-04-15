@@ -34,37 +34,38 @@ export class LoginComponent implements OnInit {
       return;
     }
     //加密密码
-    debugger;
     let enpwd = {password: password};
-    this.restClient.post("/api/pwdEncrypt", enpwd).then(result =>{
+     this.restClient.post("/api/pwdEncrypt", enpwd).then(result =>{
       console.log("pwdEncrypt:", result);
+      if (result.code == 1) {
+        password = result.password;
+        const opts = {
+          zhun: username,
+          zhpw: password,
+          'remember-me': false,
+          responseType: 'json',
+          code: null
+        };
+        const params = opts;
+        this.restClient.submitFormData("/login", params).then(result => {
+          let data = JSON.parse(result);
+          if (data.code == 1) {
+            this.router.navigateByUrl("/");
+          } else {
+            this.message.create("error", data.message);
+          }
+        });
+      } else {
+        this.message.create("error", result.msg);
+      }
     });
-    // const encryptedPassword = new KeyEncryptUtils().encrypt(
-    //   password,
-    //   '123123'
-    // );
-    const opts = {
-      zhun: username,
-      zhpw: password,
-      'remember-me': false,
-      responseType: 'json',
-      code: null
-    };
-    const params = opts;
-    // this.restClient.submitFormData("/login", params).then(result => {
-    //   let data = JSON.parse(result);
-    //   if (data.code == 1) {
-    //     this.router.navigateByUrl("/");
-    //   } else {
-    //     this.message.create("error", data.message);
-    //   }
-      
-    // });
     
-
 
   }
 
+  getEncodingPassword(password) {
+
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
